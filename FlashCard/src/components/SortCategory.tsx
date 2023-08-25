@@ -9,8 +9,8 @@ interface Props{
 const SortCategory = ({onSelectSortCategory,sortCategory}:Props) => {
   const sortCategories = [
     { value: "", label: "Video Games" },
-    { value: "-", label: "Books" },
-    { value: "name", label: "General Knowledge" },
+    { value: "-books", label: "Books" },
+    { value: "general-knowledge", label: "General Knowledge" },
     { value: "-released", label: "History" },
     { value: "-rating", label: "Television" },
   ]

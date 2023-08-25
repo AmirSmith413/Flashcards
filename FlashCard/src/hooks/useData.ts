@@ -1,11 +1,10 @@
+import axios from "axios"
 import apiClient from "../services/api-client"
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 
 
 const useData = () => {
-  useEffect(() => {
-    const controller = new AbortController()
-  })
+ 
 }
 
 export default useData

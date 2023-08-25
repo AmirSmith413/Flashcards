@@ -1,8 +1,9 @@
 import useData from "./useData";
 
 interface Category{
-  id:number
+  difficulty: string
   category: string
+  id:number
 }
 
 const useCategories = () => useData()
