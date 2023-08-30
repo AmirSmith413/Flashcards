@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import SortCategory from "./SortCategory";
 
 interface CardProps {
-  
+  results: []
   id: number;
   category: string;
   correct_answer: string;
@@ -16,27 +16,34 @@ interface CardProps {
 }
 
 const Flashcard = () => {
-  const [results, setResults] = useState<CardProps[]>([]);
+  const [data, setData] = useState<CardProps[]>([]);
 
   const FetchData = () => {
     axios
-      .get<CardProps[]>(
+      .get(
         "https://opentdb.com/api.php?amount=10&category=15&type=multiple"
       )
-      .then((response) => setResults(response.data));
+      .then((response) => setData(response.data.results));
   };
   useEffect(() => {
-    FetchData();
-  }, []);
-  console.log(results);
+   FetchData()
+  },[])
+   
+  function decodeString(str: string) {
+    const textArea = document.createElement("textarea");
+    textArea.innerHTML = str;
+    return textArea.value;
+  }
+  console.log(data);
   return (
-    <div>
-      <ul>
-        {results.map((me) => (
-          <li key={me.id}>{me.name}</li>
-        ))}
-      </ul>
-    </div>
+    <>
+    <Card>
+      <CardBody>
+        {data.map(helpme => <p key={helpme.id}>{helpme.question}</p>)}
+      </CardBody>
+    </Card>
+      
+    </>
   );
 };
 
