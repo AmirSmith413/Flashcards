@@ -13,9 +13,19 @@ interface CardProps {
   question: string;
   response_code: string[];
   name: string;
+  selectedCategory: string;
+  onCategoryChange: (category: string) => void;
 }
 
-const Flashcard = () => {
+const Flashcard = ({selectedCategory,onCategoryChange}:CardProps) => {
+  const sortCategory = [
+    {id:15,name:'Video Games'},
+    {id:27,name:'Animals'},
+    {id:14,name:'Televison'},
+    {id:16,name:'Board Games'},
+    {id:12,name:'Music'},
+
+  ]
   const [flip, setFlip] = useState(false)
   const [data, setData] = useState<CardProps[]>([]);
   const handleFlip = () => {
@@ -41,14 +51,15 @@ const Flashcard = () => {
   console.log(data);
   return (
     <>
-     <FormControl width={'200px'}>
+     <FormControl mr={'-200px'} mb={'200px'} width={'200px'}>
       <FormLabel>Select Category</FormLabel>
-      <Select>
-        <option value={1}>Video Games</option>
-        <option value={2}>Television</option>
-        <option value={3}>General Knowledge</option>
-        <option value={4}>Board Games</option>
-        <option value={5}>Animals</option>
+      <Select value={selectedCategory} onChange={(e) => onCategoryChange(e.target.value)}>
+        <option value="">Any Category</option>
+        {sortCategory.map((category) => (
+          <option key={category.id} value={category.id}>
+            {category.name}
+          </option>
+        ))}
       </Select>
     </FormControl>
       <Grid templateColumns='repeat(auto-fit,minmax(200px,1fr))'

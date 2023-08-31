@@ -12,7 +12,9 @@ function App() {
  <>
 
  
- <Flashcard/>
+ <Flashcard results={[]} id={0} category={''} correct_answer={''} difficulty={''} incorrect_answers={[]} question={''} response_code={[]} name={''} selectedCategory={''} onCategoryChange={function (category: string): void {
+        throw new Error('Function not implemented.')
+      } }/>
    
  </>
   )
