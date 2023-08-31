@@ -4,7 +4,7 @@ import {useEffect, useState} from "react"
 
 
 const useData = () => {
- const [data, setData] = <api>([])
+ 
 }
 
 export default useData

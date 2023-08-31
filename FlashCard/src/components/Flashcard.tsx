@@ -1,7 +1,7 @@
-import { Card, CardBody } from "@chakra-ui/react";
+import { Card, CardBody, FormControl, FormLabel, Grid, GridItem, Select, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import SortCategory from "./SortCategory";
+
 
 interface CardProps {
   results: [];
@@ -16,7 +16,13 @@ interface CardProps {
 }
 
 const Flashcard = () => {
+  const [flip, setFlip] = useState(false)
   const [data, setData] = useState<CardProps[]>([]);
+  const handleFlip = () => {
+     (
+      setFlip(!flip)
+    )
+  }
 
   const FetchData = () => {
     axios
@@ -35,8 +41,31 @@ const Flashcard = () => {
   console.log(data);
   return (
     <>
-      <Card>
-        <CardBody>
+     <FormControl width={'200px'}>
+      <FormLabel>Select Category</FormLabel>
+      <Select>
+        <option value={1}>Video Games</option>
+        <option value={2}>Television</option>
+        <option value={3}>General Knowledge</option>
+        <option value={4}>Board Games</option>
+        <option value={5}>Animals</option>
+      </Select>
+    </FormControl>
+      <Grid templateColumns='repeat(auto-fit,minmax(200px,1fr))'
+              gap={5}>
+        {data.map(bleh => (
+          <GridItem key={bleh.id} onClick={handleFlip}> 
+            {!flip ? (
+              <Text>{decodeString(bleh.question)}</Text>
+            ) : (<Text>{decodeString(bleh.correct_answer)}</Text>
+              
+            )}
+            </GridItem>
+        ))}
+
+
+
+        {/* <CardBody>
           {data.map((helpme) => (
             <p key={helpme.id}>{helpme.difficulty}</p>
           ))}
@@ -44,20 +73,20 @@ const Flashcard = () => {
             <p key={helpme.id}>{helpme.question}</p>
           ))}
           {data.map((helpme) => (
-            <button key={helpme.id} className="btn btn-primary">{helpme.correct_answer}</button>
+            <p key={helpme.id} >{helpme.correct_answer}</p>
           ))}
           {data.map((helpme) => (
-            <button key={helpme.id} className="btn btn-primary">{helpme.incorrect_answers}</button>
+            <p key={helpme.id} >{helpme.correct_answer}</p>
           ))}
           {data.map((helpme) => (
-            <button key={helpme.id} className="btn btn-primary">{helpme.correct_answer}</button>
+            <p key={helpme.id} >{helpme.correct_answer}</p>
           ))}
           {data.map((helpme) => (
-            <button key={helpme.id} className="btn btn-primary">{helpme.correct_answer}</button>
+            <p key={helpme.id} >{helpme.correct_answer}</p>
           ))}
           
-        </CardBody>
-      </Card>
+        </CardBody> */}
+      </Grid>
     
     </>
   );
