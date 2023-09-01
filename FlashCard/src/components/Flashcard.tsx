@@ -8,13 +8,10 @@ interface CardProps {
   id: number;
   category: string;
   correct_answer: string;
-  difficulty: string;
-  incorrect_answers: string[];
   question: string;
-  response_code: string[];
   name: string;
-  selectedCategory: string;
-  onCategoryChange: (category: string) => void;
+  selectedCategory: number;
+  onCategoryChange: (category: number) => void;
 }
 
 const Flashcard = ({selectedCategory,onCategoryChange}:CardProps) => {
@@ -48,13 +45,11 @@ const Flashcard = ({selectedCategory,onCategoryChange}:CardProps) => {
     textArea.innerHTML = str;
     return textArea.value;
   }
-  console.log(data);
   return (
     <>
-     <FormControl mr={'-200px'} mb={'200px'} width={'200px'}>
+     <FormControl mb={'200px'} width={'200px'}>
       <FormLabel>Select Category</FormLabel>
-      <Select value={selectedCategory} onChange={(e) => onCategoryChange(e.target.value)}>
-        <option value="">Any Category</option>
+      <Select value={selectedCategory} onChange={(e) => onCategoryChange(Number(e.target.value))}>
         {sortCategory.map((category) => (
           <option key={category.id} value={category.id}>
             {category.name}
@@ -65,7 +60,7 @@ const Flashcard = ({selectedCategory,onCategoryChange}:CardProps) => {
       <Grid templateColumns='repeat(auto-fit,minmax(200px,1fr))'
               gap={5}>
         {data.map(bleh => (
-          <GridItem key={bleh.id} onClick={handleFlip}> 
+          <GridItem key={bleh.id} onClick={handleFlip} className="card"> 
             {!flip ? (
               <Text>{decodeString(bleh.question)}</Text>
             ) : (<Text>{decodeString(bleh.correct_answer)}</Text>
